@@ -1,0 +1,61 @@
+<html>
+<head>
+
+ <meta charset="UTF-8">
+<script>
+$('.message a').click(function(){
+   $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+});
+</script>
+
+<link rel="stylesheet" href= "{{ url_for('static', filename='style.css') }}" />
+
+</head>
+
+<body>
+<div class="login-page">
+  <h1 class='title2'> Welcome. Please enter Twitter username to save tweets. </h1>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class=flashes>
+        {% for message in messages %}
+          <h3>{{ message }}</h3>
+        {% endfor %}
+      </ul>
+    {% endif %}
+{% endwith %}
+
+  <div class="form">
+    <form class="login-form" action = "http://localhost:5000/userpage" method = "post">
+      <input type="text" placeholder="twitter username" name = "tun"/>
+      <button>Save Tweets</button>
+    </form>
+    <a href = "logout"> Logout </a>
+  </div>
+
+
+</div>
+
+</body>
+<div style="overflow-x:auto;">
+<table class='minimalistBlack'>
+  <thead>
+<tr>
+  <th>Date Tweeted</th>
+  <th>Text</th>
+  <th>Retweet Count</th>
+  <th>Favorite Count</th>
+</thead>
+</tr>
+{% for row in data %}
+        <tr>
+          <td>{{ row.created_at }}</td>
+          <td>{{ row.text }}</td>
+          <td>{{ row.retweet_count }}</td>
+          <td>{{ row.favorite_count }}</td>
+
+        </tr>
+    {% endfor %}
+  </table>
+</div>
+</html>

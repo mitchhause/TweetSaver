@@ -1,0 +1,34 @@
+<html>
+<head>
+<script>
+$('.message a').click(function(){
+   $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+});
+</script>
+
+<link rel="stylesheet" href= "{{ url_for('static', filename='style.css') }}" />
+
+</head>
+
+<body>
+<div class="login-page">
+  <h1 class='title'> Register </h1>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class=flashes>
+        {% for message in messages %}
+          <h3>{{ message }}</h3>
+        {% endfor %}
+      </ul>
+    {% endif %}
+{% endwith %}
+  <div class="form">
+    <form class="login-form" action = "http://localhost:5000/register" method = "post">
+      <input type="text" placeholder="username" name = "un"/>
+      <input type="text" placeholder="password" name = "pw"/>
+      <button>register</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>
